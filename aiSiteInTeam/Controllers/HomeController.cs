@@ -13,15 +13,21 @@ namespace aiSiteInTeam.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        public ActionResult Approfondimenti()
         {
             return View();
         }
+
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
