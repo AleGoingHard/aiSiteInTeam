@@ -2,7 +2,183 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">AI Innovation</div>
+        <ul class="nav-links">
+            <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+            <li><a href="@Url.Action("Approfondimenti", "Home")">Approfondimenti</a></li>
+            <li><a href="@Url.Action("ContactUs", "Home")">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">Artificial Intelligence</h1>
+        <p class="hero-subtitle">Rivoluzionando il futuro attraverso l'intelligenza computazionale avanzata</p>
+
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number">175B</span>
+                <span class="stat-label">Parametri AI</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">96%</span>
+                <span class="stat-label">Precisione</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">2.8M</span>
+                <span class="stat-label">Operazioni/sec</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">45TB</span>
+                <span class="stat-label">Dataset Training</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Code Editor Section -->
+<section class="code-section">
+    <div class="section-container">
+        <div class="section-content">
+            <h2>Neural Networks</h2>
+            <p>Esplora l'architettura delle reti neurali profonde che stanno ridefinendo i confini dell'intelligenza artificiale. Dai transformer ai modelli generativi, ogni linea di codice rappresenta un passo verso il futuro.</p>
+            <p>L'evoluzione dell'AI non è solo tecnologia, ma una nuova forma di intelligenza che apprende, si adatta e supera i limiti umani in compiti sempre più complessi.</p>
+        </div>
+
+        <div class="code-editor">
+            <div class="code-header">
+                <div class="code-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="code-title">neural_network.py</div>
+            </div>
+            <div class="code-content">
+                <div class="code-line">
+                    <span class="line-number">1</span>
+                    <span class="code-text"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">2</span>
+                    <span class="code-text"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">3</span>
+                    <span class="code-text"></span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">4</span>
+                    <span class="code-text"><span class="comment"># Advanced Transformer Architecture</span></span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">5</span>
+                    <span class="code-text"><span class="keyword">class</span> <span class="function">MultiHeadAttention</span>(tf.keras.layers.Layer):</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">6</span>
+                    <span class="code-text">    <span class="keyword">def</span> <span class="function">__init__</span>(self, d_model, num_heads):</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">7</span>
+                    <span class="code-text">        super().__init__()</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">8</span>
+                    <span class="code-text">        self.d_model = d_model</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">9</span>
+                    <span class="code-text">        self.num_heads = num_heads</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">10</span>
+                    <span class="code-text">        </span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">11</span>
+                    <span class="code-text">    <span class="keyword">def</span> <span class="function">call</span>(self, query, key, value):</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">12</span>
+                    <span class="code-text">        attention_weights = tf.nn.softmax(</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">13</span>
+                    <span class="code-text">            tf.matmul(query, key, transpose_b=<span class="keyword">True</span>)</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">14</span>
+                    <span class="code-text">        )</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">15</span>
+                    <span class="code-text">        <span class="keyword">return</span> tf.matmul(attention_weights, value)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+    <div class="features-container">
+        <h2>Tecnologie Emergenti</h2>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Deep Learning</h3>
+                <p>Reti neurali profonde che simulano il funzionamento del cervello umano, capaci di riconoscere pattern complessi e prendere decisioni intelligenti in tempo reale.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔮</div>
+                <h3>Predictive Analytics</h3>
+                <p>Algoritmi avanzati che analizzano dati storici per predire tendenze future con precisione millimetrica, rivoluzionando il processo decisionale.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Real-time Processing</h3>
+                <p>Elaborazione di milioni di dati al secondo attraverso architetture distribuite e computing edge, garantendo risposte istantanee.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Quantum Computing</h3>
+                <p>L'integrazione con i computer quantistici apre nuove frontiere nell'ottimizzazione e nella risoluzione di problemi computazionalmente complessi.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Autonomous Systems</h3>
+                <p>Sistemi completamente autonomi che apprendono, si adattano e migliorano continuamente le proprie prestazioni senza intervento umano.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Global Intelligence</h3>
+                <p>Intelligenza distribuita su scala globale che coordina risorse e conoscenze per risolvere sfide planetarie complesse.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+    <div class="cta-container">
+        <h2>Il Futuro è Oggi</h2>
+        <p>Unisciti alla rivoluzione dell'intelligenza artificiale e scopri come la tecnologia può trasformare il tuo mondo.</p>
+
+        <div class="cta-buttons">
+            <a href="@Url.Action("Approfondimenti", "Home")" class="btn btn-primary">Esplora Tecnologie</a>
+            <a href="@Url.Action("ContactUs", "Home")" class="btn btn-secondary">Inizia Progetto</a>
+        </div>
+    </div>
+</section>
