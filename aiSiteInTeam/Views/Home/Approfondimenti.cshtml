@@ -5,18 +5,185 @@
     ViewData["Title"] = "Approfondimenti sui Modelli di IA";
 }
 
+<!-- Header Section -->
+<header>
+    <nav class="custom-navbar">
+        <div class="nav-container">
+            <a class="navbar-brand-custom" asp-area="" asp-controller="Home" asp-action="Index">aiSiteInTeam</a>
+            <button class="mobile-toggle" type="button" onclick="toggleMobileMenu()">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <ul class="nav-menu">
+                    <li class="nav-item-custom">
+                        <a class="nav-link-custom" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item-custom">
+                        <a class="nav-link-custom current-page">Approfondimenti</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
 
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
-    <style>
+<style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* Custom Navbar Styles */
+        .custom-navbar {
+            background: rgba(12, 12, 12, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand-custom {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #00d4ff, #ff00aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand-custom:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item-custom {
+            position: relative;
+        }
+
+        .nav-link-custom {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .nav-link-custom:hover::before {
+            left: 100%;
+        }
+
+        .nav-link-custom:hover {
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .nav-link-custom.current-page {
+            background: linear-gradient(45deg, #00d4ff, #ff00aa);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger-line {
+            width: 25px;
+            height: 3px;
+            background: linear-gradient(45deg, #00d4ff, #ff00aa);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        /* Mobile Styles */
+        @@media (max-width: 768px) {
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(12, 12, 12, 0.95);
+                backdrop-filter: blur(20px);
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                padding: 1rem 0;
+                gap: 0;
+            }
+
+            .nav-link-custom {
+                padding: 1rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-radius: 0;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
         }
 
         body {
@@ -25,10 +192,11 @@
             color: #ffffff;
             line-height: 1.6;
             overflow-x: hidden;
+            padding-top: 80px; /* Space for fixed navbar */
         }
 
         .hero-section {
-            height: 100vh;
+            height: calc(100vh - 80px); /* Adjust for navbar height */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -485,8 +653,14 @@
     </section>
 
     <script>
+        // Mobile menu toggle
+        window.toggleMobileMenu = function () {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
         // Animazione particelle aggiuntive
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const particles = document.querySelectorAll('.particle');
             particles.forEach((particle, index) => {
                 particle.style.top = Math.random() * 100 + '%';
@@ -496,11 +670,11 @@
             // Effetto hover per le card
             const cards = document.querySelectorAll('.model-card');
             cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
+                card.addEventListener('mouseenter', function () {
                     this.style.transform = 'translateY(-10px) scale(1.02)';
                 });
 
-                card.addEventListener('mouseleave', function() {
+                card.addEventListener('mouseleave', function () {
                     this.style.transform = 'translateY(0) scale(1)';
                 });
             });
@@ -511,7 +685,7 @@
                 rootMargin: '0px 0px -100px 0px'
             };
 
-            const observer = new IntersectionObserver(function(entries) {
+            const observer = new IntersectionObserver(function (entries) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.style.opacity = '1';
