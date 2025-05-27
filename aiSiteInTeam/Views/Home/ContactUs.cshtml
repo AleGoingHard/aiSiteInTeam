@@ -310,16 +310,32 @@
             transform: translateY(-1px);
         }
 
-    /* Success Message */
-    .success-message {
-        display: none;
-        background: rgba(40, 167, 69, 0.1);
-        border: 1px solid rgba(40, 167, 69, 0.3);
-        color: #28a745;
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+    /* Messages */
+    .alert {
         padding: 15px 20px;
         border-radius: 12px;
         margin-bottom: 20px;
         text-align: center;
+        font-weight: 500;
+    }
+
+    .alert-success {
+        background: rgba(40, 167, 69, 0.1);
+        border: 1px solid rgba(40, 167, 69, 0.3);
+        color: #28a745;
+    }
+
+    .alert-error {
+        background: rgba(220, 53, 69, 0.1);
+        border: 1px solid rgba(220, 53, 69, 0.3);
+        color: #dc3545;
     }
 
     /* Responsive */
@@ -464,11 +480,24 @@
             <div class="contact-form">
                 <h3>Invia un Messaggio</h3>
 
-                <div class="success-message" id="successMessage">
-                    Grazie! Il tuo messaggio è stato inviato con successo. Ti contatteremo presto!
-                </div>
+                <!-- Messaggi di successo/errore -->
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["Success"]
+                    </div>
+                }
+
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-error">
+                        @TempData["Error"]
+                    </div>
+                }
 
                 <form id="contactForm" method="post" action="@Url.Action("SubmitContact", "Home")">
+                    @Html.AntiForgeryToken()
+                    
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label" for="firstName">Nome *</label>
@@ -485,18 +514,18 @@
                             <label class="form-label" for="email">Email *</label>
                             <input type="email" id="email" name="Email" class="form-input" placeholder="tua@email.com" required>
                         </div>
-
                         <div class="form-group">
                             <label class="form-label" for="subject">Oggetto *</label>
                             <input type="text" id="subject" name="Subject" class="form-input" placeholder="Di cosa vuoi parlarci?" required>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label class="form-label" for="message">Messaggio *</label>
-                            <textarea id="message" name="Message" class="form-textarea" placeholder="Descrivi il tuo progetto, le tue idee o le tue domande sull'intelligenza artificiale..." required></textarea>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label" for="message">Messaggio *</label>
+                        <textarea id="message" name="Message" class="form-textarea" placeholder="Descrivi il tuo progetto, le tue idee o le tue domande sull'intelligenza artificiale..." required></textarea>
+                    </div>
 
-                        <button type="submit" class="submit-btn">Invia Messaggio</button>
+                    <button type="submit" class="submit-btn" id="submitBtn">Invia Messaggio</button>
                 </form>
             </div>
         </div>
@@ -505,25 +534,23 @@
 
 <script>
     document.getElementById('contactForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        // Simulazione invio (da sostituire con logica server-side)
-        const submitBtn = document.querySelector('.submit-btn');
+        const submitBtn = document.getElementById('submitBtn');
         const originalText = submitBtn.textContent;
 
+        // Disabilita il pulsante e mostra stato di caricamento
         submitBtn.textContent = 'Invio in corso...';
         submitBtn.disabled = true;
 
-        setTimeout(() => {
-            document.getElementById('successMessage').style.display = 'block';
-            document.getElementById('contactForm').reset();
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
+        // Il form verrà inviato normalmente al server
+        // Non preveniamo il comportamento predefinito
+    });
 
-            // Nascondi il messaggio dopo 5 secondi
-            setTimeout(() => {
-                document.getElementById('successMessage').style.display = 'none';
-            }, 5000);
-        }, 1500);
+    // Riabilita il pulsante se c'è un errore di validazione
+    window.addEventListener('load', function() {
+        const submitBtn = document.getElementById('submitBtn');
+        if (submitBtn.disabled) {
+            submitBtn.textContent = 'Invia Messaggio';
+            submitBtn.disabled = false;
+        }
     });
 </script>
