@@ -5,18 +5,185 @@
     ViewData["Title"] = "Approfondimenti sui Modelli di IA";
 }
 
+<!-- Header Section -->
+<header>
+    <nav class="custom-navbar">
+        <div class="nav-container">
+            <a class="navbar-brand-custom" asp-area="" asp-controller="Home" asp-action="Index">aiSiteInTeam</a>
+            <button class="mobile-toggle" type="button" onclick="toggleMobileMenu()">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <ul class="nav-menu">
+                    <li class="nav-item-custom">
+                        <a class="nav-link-custom" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item-custom">
+                        <a class="nav-link-custom current-page">Approfondimenti</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
 
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
-    <style>
+<style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* Custom Navbar Styles */
+        .custom-navbar {
+            background: rgba(12, 12, 12, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand-custom {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #00d4ff, #ff00aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand-custom:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item-custom {
+            position: relative;
+        }
+
+        .nav-link-custom {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .nav-link-custom:hover::before {
+            left: 100%;
+        }
+
+        .nav-link-custom:hover {
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .nav-link-custom.current-page {
+            background: linear-gradient(45deg, #00d4ff, #ff00aa);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger-line {
+            width: 25px;
+            height: 3px;
+            background: linear-gradient(45deg, #00d4ff, #ff00aa);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        /* Mobile Styles */
+        @@media (max-width: 768px) {
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(12, 12, 12, 0.95);
+                backdrop-filter: blur(20px);
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                padding: 1rem 0;
+                gap: 0;
+            }
+
+            .nav-link-custom {
+                padding: 1rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-radius: 0;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
         }
 
         body {
@@ -25,10 +192,11 @@
             color: #ffffff;
             line-height: 1.6;
             overflow-x: hidden;
+            padding-top: 80px; /* Space for fixed navbar */
         }
 
         .hero-section {
-            height: 100vh;
+            height: calc(100vh - 80px); /* Adjust for navbar height */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -283,250 +451,3 @@
         }
     </style>
 </head>
-<body>
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="floating-particles">
-            <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
-            <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
-            <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
-            <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
-            <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
-            <div class="particle" style="left: 60%; animation-delay: 1.5s;"></div>
-            <div class="particle" style="left: 70%; animation-delay: 2.5s;"></div>
-            <div class="particle" style="left: 80%; animation-delay: 3.5s;"></div>
-            <div class="particle" style="left: 90%; animation-delay: 4.5s;"></div>
-        </div>
-        <div class="hero-content">
-            <h1 class="hero-title">AI REVOLUTION</h1>
-            <p class="hero-subtitle">Esplora il futuro dell'intelligenza artificiale</p>
-        </div>
-    </section>
-
-    <!-- Models Section -->
-    <section class="models-container">
-        <h2 class="section-title">I Giganti dell'IA</h2>
-
-        <div class="models-grid">
-            <!-- Claude -->
-            <div class="model-card">
-                <div class="model-header">
-                    <div class="model-icon claude-icon">C</div>
-                    <div>
-                        <h3 class="model-name">Claude</h3>
-                        <p class="model-company">Anthropic</p>
-                    </div>
-                </div>
-                <p class="model-description">
-                    Claude rappresenta l'eccellenza nell'IA conversazionale, progettato con un focus particolare sulla sicurezza e l'utilità.
-                    Offre capacità avanzate di ragionamento, coding e analisi, mantenendo sempre un approccio etico e responsabile.
-                </p>
-                <ul class="model-features">
-                    <li>Finestra di contesto estesa (200K+ token)</li>
-                    <li>Eccellenti capacità di coding e debug</li>
-                    <li>Analisi avanzata di documenti e immagini</li>
-                    <li>Ragionamento logico superiore</li>
-                </ul>
-            </div>
-
-            <!-- ChatGPT -->
-            <div class="model-card">
-                <div class="model-header">
-                    <div class="model-icon gpt-icon">GPT</div>
-                    <div>
-                        <h3 class="model-name">ChatGPT</h3>
-                        <p class="model-company">OpenAI</p>
-                    </div>
-                </div>
-                <p class="model-description">
-                    Il pioniere dell'IA conversazionale che ha rivoluzionato il modo in cui interagiamo con l'intelligenza artificiale.
-                    GPT-4 offre capacità multimodali avanzate e una vasta conoscenza generale.
-                </p>
-                <ul class="model-features">
-                    <li>Modello multimodale (testo, immagini, audio)</li>
-                    <li>Integrazione con strumenti esterni</li>
-                    <li>Generazione di codice avanzata</li>
-                    <li>Ampia base di conoscenza</li>
-                </ul>
-            </div>
-
-            <!-- DeepSeek -->
-            <div class="model-card">
-                <div class="model-header">
-                    <div class="model-icon deepseek-icon">DS</div>
-                    <div>
-                        <h3 class="model-name">DeepSeek</h3>
-                        <p class="model-company">DeepSeek AI</p>
-                    </div>
-                </div>
-                <p class="model-description">
-                    Un modello emergente che sta guadagnando riconoscimento per le sue prestazioni competitive e l'approccio innovativo
-                    all'addestramento dell'IA, offrendo soluzioni efficienti e performanti.
-                </p>
-                <ul class="model-features">
-                    <li>Architettura ottimizzata per l'efficienza</li>
-                    <li>Forte focus su matematica e logica</li>
-                    <li>Modello open-source</li>
-                    <li>Prestazioni competitive con costi ridotti</li>
-                </ul>
-            </div>
-
-            <!-- Gemini -->
-            <div class="model-card">
-                <div class="model-header">
-                    <div class="model-icon gemini-icon">G</div>
-                    <div>
-                        <h3 class="model-name">Gemini</h3>
-                        <p class="model-company">Google</p>
-                    </div>
-                </div>
-                <p class="model-description">
-                    L'ultima generazione di modelli AI di Google, progettato per essere nativo multimodale fin dall'inizio.
-                    Integra perfettamente testo, immagini, audio e video in un'unica esperienza fluida.
-                </p>
-                <ul class="model-features">
-                    <li>Multimodalità nativa avanzata</li>
-                    <li>Integrazione con ecosistema Google</li>
-                    <li>Capacità di elaborazione video</li>
-                    <li>Ottimizzazione per dispositivi mobili</li>
-                </ul>
-            </div>
-
-            <!-- LLaMA -->
-            <div class="model-card">
-                <div class="model-header">
-                    <div class="model-icon llama-icon">LL</div>
-                    <div>
-                        <h3 class="model-name">LLaMA</h3>
-                        <p class="model-company">Meta</p>
-                    </div>
-                </div>
-                <p class="model-description">
-                    La famiglia di modelli open-source di Meta che ha democratizzato l'accesso all'IA avanzata.
-                    LLaMA ha ispirato un'intera comunità di sviluppatori e ricercatori.
-                </p>
-                <ul class="model-features">
-                    <li>Completamente open-source</li>
-                    <li>Ottimizzato per hardware consumer</li>
-                    <li>Base per numerosi modelli derivati</li>
-                    <li>Community attiva e in crescita</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Comparison Section -->
-        <div class="comparison-section">
-            <h3 class="section-title">Confronto Prestazioni</h3>
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Modello</th>
-                        <th>Ragionamento</th>
-                        <th>Coding</th>
-                        <th>Creatività</th>
-                        <th>Multimodalità</th>
-                        <th>Accessibilità</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Claude</strong></td>
-                        <td>⭐⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐</td>
-                    </tr>
-                    <tr>
-                        <td><strong>GPT-4</strong></td>
-                        <td>⭐⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐</td>
-                    </tr>
-                    <tr>
-                        <td><strong>DeepSeek</strong></td>
-                        <td>⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐</td>
-                        <td>⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐⭐</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Gemini</strong></td>
-                        <td>⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐</td>
-                    </tr>
-                    <tr>
-                        <td><strong>LLaMA</strong></td>
-                        <td>⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐</td>
-                        <td>⭐⭐⭐</td>
-                        <td>⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐⭐</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- Future Section -->
-    <section class="future-section">
-        <h2 class="future-title">Il Futuro è Ora</h2>
-        <p style="font-size: 1.2rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-            L'intelligenza artificiale sta rivoluzionando ogni aspetto della nostra vita. Questi modelli rappresentano solo l'inizio
-            di una trasformazione epocale che cambierà per sempre il modo in cui lavoriamo, creiamo e interagiamo con la tecnologia.
-        </p>
-        <a href="#" class="cta-button">Esplora le Possibilità</a>
-    </section>
-
-    <script>
-        // Animazione particelle aggiuntive
-        document.addEventListener('DOMContentLoaded', function() {
-            const particles = document.querySelectorAll('.particle');
-            particles.forEach((particle, index) => {
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-            });
-
-            // Effetto hover per le card
-            const cards = document.querySelectorAll('.model-card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
-                });
-
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-
-            // Animazione scroll
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -100px 0px'
-            };
-
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(card);
-            });
-        });
-    </script>
-</body>
-</html>
